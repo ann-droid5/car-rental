@@ -3,5 +3,9 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('book/<int:vehicle_id>/', views.booking_form, name='booking_form'),
+    path('login/', views.user_login, name='login'),
+    path('signup/', views.user_signup, name='signup'),
+    path('logout/', views.user_logout, name='logout'),
+    path('submit-booking/', views.submit_booking, name='submit_booking'),
+    
 ]
