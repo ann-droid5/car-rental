@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book {{ vehicle.name }}</title>
+</head>
+<body>
+
+<h2>Book {{ vehicle.name }}</h2>
+
+<p><strong>Vehicle Type:</strong> {{ vehicle.vehicle_type }}</p>
+<p><strong>Seating:</strong> {{ vehicle.seating_capacity }}</p>
+<p><strong>Price per km:</strong> ₹{{ vehicle.price_per_km }}</p>
+
+<hr>
+
+<form method="post">
+    {% csrf_token %}
+
+    <label>Pickup Location</label><br>
+    <input type="text" name="pickup" required><br><br>
+
+    <label>Drop Location</label><br>
+    <input type="text" name="drop" required><br><br>
+
+    <label>Date</label><br>
+    <input type="date" name="date" required><br><br>
+
+    <label>Time</label><br>
+    <input type="time" name="time" required><br><br>
+
+    <button type="submit">Confirm Booking</button>
+</form>
+
+</body>
+</html>
