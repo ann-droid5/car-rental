@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import redirect, get_object_or_404
 from .models import Vehicle, Booking, Customer
 
@@ -89,4 +89,13 @@ def home(request):
         'vehicles': vehicles
     })
 
+
+
+@staff_member_required
+
+def admin(request):
+    
+    return render(request, 'booking/admin.html', {
+        
+    })
 
