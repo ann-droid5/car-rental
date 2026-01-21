@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login | Cab4Cochi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+
+<div class="login-wrapper">
+  <div class="row no-gutters h-100">
+
+    <!-- LEFT PANEL -->
+    <div class="col-md-5 d-none d-md-flex left-panel">
+      
+    </div>
+    <a href="{% url 'booking:home' %}" class="admin-back">
+  <i class="fas fa-arrow-left"></i>
+</a>
+
+    <!-- RIGHT PANEL -->
+    <div class="col-md-7 right-panel d-flex align-items-center justify-content-center">
+      <div class="login-card">
+
+        <h2>Admin Login</h2>
+        <p class="text-muted">
+          Welcome back! Please sign in to access the admin panel.
+        </p>
+
+        <img src="{% static 'images/logonav.png' %}" class="login-illustration" alt="Admin Login">
+
+
+
+        <form method="post">
+          {% csrf_token %}
+
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+            </div>
+            <input type="email" name="email" class="form-control" placeholder="admin@example.com" required>
+          </div>
+
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-lock"></i></span>
+            </div>
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
+            <div class="forgot">
+              <a href="#">Forgot password?</a>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            Login
+          </button>
+
+        {% if error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+        {% endif %}
+        </form>
+
+        <p class="footer-text">© 2026 Cab4Cochi</p>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

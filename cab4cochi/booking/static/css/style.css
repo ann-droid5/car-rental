@@ -8441,69 +8441,6 @@ h1, h2, h3, h4, h5,
     
     
 
-.slider-text {
-  height: 850px; }
-  @media (max-width: 991.98px) {
-    .slider-text {
-      height: 1150px; } }
-  .slider-text h1 {
-    font-size: 44px;
-    color: #fff;
-    line-height: 1.1;
-    font-weight: 700; }
-    .slider-text h1 span {
-      display: block; }
-  .slider-text .icon-wrap .icon {
-    width: 70px;
-    height: 70px;
-    background: #002752;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    border-radius: 50%; }
-    .slider-text .icon-wrap .icon span {
-      color: #fff; }
-  .slider-text .icon-wrap .heading-title {
-    position: relative; }
-    .slider-text .icon-wrap .heading-title:after {
-      position: absolute;
-      top: 50%;
-      left: -40px;
-      -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%);
-      content: '';
-      width: 30px;
-      height: 2px;
-      background: #fff; }
-    .slider-text .icon-wrap .heading-title span {
-      font-family: "Poppins", Arial, sans-serif;
-      color: #fff; }
-  .slider-text p {
-    line-height: 1.5;
-    color: white; }
-  .slider-text .breadcrumbs {
-    font-size: 14px;
-    margin-bottom: 20px;
-    z-index: 99;
-    text-transform: uppercase;
-    font-weight: 500; }
-    .slider-text .breadcrumbs span {
-      color: rgba(255, 255, 255, 0.7); }
-      .slider-text .breadcrumbs span i {
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 13px; }
-      .slider-text .breadcrumbs span a {
-        color: rgba(255, 255, 255, 0.7); }
-        .slider-text .breadcrumbs span a:hover, .slider-text .breadcrumbs span a:focus {
-          color: #1089ff; }
-          .slider-text .breadcrumbs span a:hover i, .slider-text .breadcrumbs span a:focus i {
-            color: #1089ff; }
-  .slider-text .bread {
-    font-weight: 400 !important;
-    position: relative;
-    line-height: .8; }
-
 .featured-top {
   margin-top: -50px; }
 

@@ -8,6 +8,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 
 
+
+ADMIN_EMAIL = "admin@cab4cochi.com"
+ADMIN_PASSWORD = "admin123"
+
 def user_signup(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -91,11 +95,37 @@ def home(request):
 
 
 
-@staff_member_required
 
-def admin(request):
-    
-    return render(request, 'booking/admin.html', {
-        
+def adminlogin(request):
+    error = None
+
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        if email == ADMIN_EMAIL and password == ADMIN_PASSWORD:
+            # mark admin as logged in
+            request.session["is_admin"] = True
+            return redirect("booking:admindashboard")
+
+        else:
+            error = "Invalid admin credentials"
+
+    return render(request, "booking/admin_login.html", {
+        "error": error
     })
 
+def admindashboard(request):
+    if not request.session.get("is_admin"):
+        return redirect("booking:adminlogin")
+
+
+    return render(request, "booking/admin_dashboard.html")
+"""
+def adminlogout(request):
+    request.session.flush()
+    return redirect("adminlogin")"""
+
+def bookingpage(request):
+    
+    return render(request, 'booking/booking.html')

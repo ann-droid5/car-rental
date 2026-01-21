@@ -58,7 +58,7 @@
 	          <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
 	          <li class="nav-item"><a href="#aboutus" class="nav-link">About</a></li>
 	          <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-            <li class="nav-item"><a href="/admin/" class="nav-link">Admin</a></li>
+            <li class="nav-item"><a href="{% url 'booking:adminlogin' %}" class="nav-link">Admin</a></li>
             <li class="nav-item"><a href="#" data-toggle="modal" data-target="#authModal" class="nav-link">Login / Sign Up</a></li>
 
 	        </ul>
@@ -179,9 +179,6 @@
           <h3>Clean and well maintained vehicles </h3>
           <p>Enjoy a pleasant ride in vehicles that are regularly cleaned and maintained.</div>
       </div>
-      
-     
-      
     </div>
       
   </div>
@@ -195,62 +192,38 @@
         <p>Choose from our wide range of well-maintained vehicles.</p>
       </div>
     </div>
-    <div class="row">
-  {% for vehicle in vehicles %}
-  <div class="col-md-4 mb-4 ftco-animate">
-    <div class="card vehicle-card shadow-sm border-0 h-100">
+    <div class="row d-flex">
+    {% for vehicle in vehicles %}
+    <div class="col-lg-4 col-md-6 col-sm-12 mb-4 ftco-animate">
+      <div class="card vehicle-card shadow-sm border-0 h-100">
 
-      <div class="vehicle-img">
-        <img src="{% static 'images/vehicle-1.png' %}" class="card-img-top" alt="{{ vehicle.name }}">
-      </div>
-
-      <div class="card-body text-center">
-        <h5 class="card-title mb-2">{{ vehicle.name }}</h5>
-
-        <p class="text-muted mb-1">
-          {{ vehicle.seating_capacity }} Passengers • AC
-        </p>
-
-        {% if vehicle.price_per_km > 0 %}
-          <h6 class="text-primary font-weight-bold mb-3">
-            ₹{{ vehicle.price_per_km }} / km
-          </h6>
-        {% else %}
-          <p class="text-muted mb-1">Available on request</p>
-          <h6 class="text-primary font-weight-bold mb-3">
-            Rates subject to change
-          </h6>
-        {% endif %}
-        {% if user.is_authenticated %}
-        <div class="d-flex justify-content-center">
-          <button type="button"
-                        class="btn btn-primary btn-sm mx-1 open-booking-modal"
-                        data-toggle="modal"
-                        data-target="#bookingModal"
-                        data-vehicle-id="{{ vehicle.id }}"
-                        data-vehicle-name="{{ vehicle.name }}"
-                        data-vehicle-capacity="{{ vehicle.seating_capacity }}"
-                        data-vehicle-price="{% if vehicle.price_per_km > 0 %}₹{{ vehicle.price_per_km }} / km{% else %}On Request{% endif %}">
-                        Book Now
-          </button>
-          {% else %}
-            <button
-              class="btn btn-primary btn-sm"
-              data-toggle="modal"
-              data-target="#loginModal">
-              Book Now
-            </button>
-          {% endif %}
-          <a href="tel:+919846365999"
-             class="btn btn-success btn-sm mx-1">
-             Call Now
-          </a>
+        <div class="vehicle-img">
+          <img src="{% static 'images/vehicle-1.png' %}" alt="{{ vehicle.name }}">
         </div>
 
-      </div>
+        <div class="card-body text-center d-flex flex-column">
+          <h5 class="card-title">{{ vehicle.name }}</h5>
+          <p class="text-muted">
+            {{ vehicle.seating_capacity }} Passengers • AC
+          </p>
+
+          {% if vehicle.price_per_km > 0 %}
+            <h6 class="text-primary font-weight-bold">
+              ₹{{ vehicle.price_per_km }} / km
+            </h6>
+          {% else %}
+            <p class="text-muted">Available on request</p>
+          {% endif %}
+
+          <div class="mt-auto d-flex justify-content-center">
+            <button class="btn btn-primary btn-sm mx-1">Book Now</button>
+            <a href="tel:+919846365999" class="btn btn-success btn-sm mx-1">Call Now</a>
+          </div>
+        </div>
     </div>
-  </div>
-  {% endfor %}
+</div>
+
+    {% endfor %}
 </div>
 <div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="bookingModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -309,176 +282,7 @@
     </div>
 </div>
 
-{% comment %}
 
-    <div class="row">
-       Vehicle Card 1 
-      <div class="col-md-4 mb-4 ftco-animate">
-        <div class="card vehicle-card shadow-sm border-0 h-100">
-          <div class="vehicle-img">
-            <img src="{% static 'images/vehicle-1.png' %}" class="card-img-top" alt="Suzuki Ertiga">
-          </div>
-          <div class="card-body text-center">
-            <h5 class="card-title mb-2">Suzuki Ertiga</h5>
-            <p class="text-muted mb-1">6 Passengers • AC </p>
-            <h6 class="text-primary font-weight-bold mb-3">₹20 / km</h6>
-            <div class="d-flex justify-content-center">
-              <a href="{% url 'booking_form' vehicle.id %}" class="btn btn-primary btn-sm mx-1">Book Now</a>
-              
-              <a href="tel:+919846365999" class="btn btn-success btn-sm mx-1">Call Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      - Vehicle Card 2 
-      <div class="col-md-4 mb-4 ftco-animate">
-        <div class="card vehicle-card shadow-sm border-0 h-100">
-          <div class="vehicle-img">
-            <img src="{% static 'images/vehicle-2.png' %}" class="card-img-top" alt="Maruti Dzire">
-          </div>
-          <div class="card-body text-center">
-            <h5 class="card-title mb-2">Maruti Dzire</h5>
-            <p class="text-muted mb-1">4 Passengers • AC </p>
-            <h6 class="text-primary font-weight-bold mb-3">₹18 / km</h6>
-            <div class="d-flex justify-content-center">
-              <a href="{% url 'booking_form' vehicle.id %}" class="btn btn-primary btn-sm mx-1">Book Now</a>
-              <a href="tel:+919846365999" class="btn btn-success btn-sm mx-1">Call Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      Vehicle Card 3 
-      <div class="col-md-4 mb-4 ftco-animate">
-        <div class="card vehicle-card shadow-sm border-0 h-100">
-          <div class="vehicle-img">
-            <img src="{% static 'images/vehicle-3.png' %}" class="card-img-top" alt="Suzuki WagonR">
-          </div>
-          <div class="card-body text-center">
-            <h5 class="card-title mb-2">Suzuki WagonR</h5>
-            <p class="text-muted mb-1">4 Passengers • AC </p>
-            <h6 class="text-primary font-weight-bold mb-3">₹17 / km</h6>
-            <div class="d-flex justify-content-center">
-              <a href="{% url 'booking_form' vehicle.id %}" class="btn btn-primary btn-sm mx-1">Book Now</a>
-              <a href="tel:+919846365999" class="btn btn-success btn-sm mx-1">Call Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      Vehicle Card 4
-      <div class="col-md-4 mb-4 ftco-animate">
-        <div class="card vehicle-card shadow-sm border-0 h-100">
-          <div class="vehicle-img">
-            <img src="{% static 'images/vehicle-4.png' %}" class="card-img-top" alt="Toyota Innova Crysta">
-          </div>
-          <div class="card-body text-center">
-            <h5 class="card-title mb-2">Toyota Crysta</h5>
-            <p class="text-muted mb-1">6 passengers • AC </p>
-            <p class="text-muted mb-1">Available on request</p>
-            <h6 class="text-primary font-weight-bold mb-3">Rates subject to change during festive or peak periods</h6>
-            <div class="d-flex justify-content-center">
-              <a href="{% url 'booking_form' vehicle.id %}" class="btn btn-primary btn-sm mx-1">Book Now</a>
-              <a href="tel:+919846365999" class="btn btn-success btn-sm mx-1">Call Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-     Vehicle Card 5 
-      <div class="col-md-4 mb-4 ftco-animate">
-        <div class="card vehicle-card shadow-sm border-0 h-100">
-          <div class="vehicle-img">
-            <img src="{% static 'images/vehicle-5.png' %}" class="card-img-top" alt="Kia Carens">
-          </div>
-          <div class="card-body text-center">
-            <h5 class="card-title mb-2">Kia Carens</h5>
-            <p class="text-muted mb-1">6 passengers • AC </p>
-            <p class="text-muted mb-1">Available on request</p>
-            <h6 class="text-primary font-weight-bold mb-3">Rates subject to change during festive or peak periods</h6>
-            <div class="d-flex justify-content-center">
-              <a href="{% url 'booking_form' vehicle.id %}" class="btn btn-primary btn-sm mx-1">Book Now</a>
-              <a href="tel:+919846365999" class="btn btn-success btn-sm mx-1">Call Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    - Vehicle Card 6 
-      <div class="col-md-4 mb-4 ftco-animate">
-        <div class="card vehicle-card shadow-sm border-0 h-100">
-          <div class="vehicle-img">
-            <img src="{% static 'images/vehicle-6.png' %}" class="card-img-top" alt="Toyota Innova ">
-          </div>
-          <div class="card-body text-center">
-            <h5 class="card-title mb-2">Toyota Innova</h5>
-            <p class="text-muted mb-1">6 passengers • AC </p>
-            <p class="text-muted mb-1">Available on request</p>
-            <h6 class="text-primary font-weight-bold mb-3">Rates subject to change during festive or peak periods</h6>
-            <div class="d-flex justify-content-center">
-              <a href="{% url 'booking_form' vehicle.id %}" class="btn btn-primary btn-sm mx-1">Book Now</a>
-              <a href="tel:+919846365999" class="btn btn-success btn-sm mx-1">Call Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      Vehicle Card 7 
-      <div class="col-md-4 mb-4 ftco-animate">
-        <div class="card vehicle-card shadow-sm border-0 h-100">
-          <div class="vehicle-img">
-            <img src="{% static 'images/vehicle-7.png' %}" class="card-img-top" alt="Traveller">
-          </div>
-          <div class="card-body text-center">
-            <h5 class="card-title mb-2">Traveller</h5>
-            <p class="text-muted mb-1">Seat Capacity: 9,10,12,17,19,26</p>
-            <p class="text-muted mb-1">AC and Non-AC </p>
-            <p class="text-muted mb-1">Available on request</p>
-            <h6 class="text-primary font-weight-bold mb-3">Rates subject to change during festive or peak periods</h6>
-            <div class="d-flex justify-content-center">
-              <a href="{% url 'booking_form' vehicle.id %}" class="btn btn-primary btn-sm mx-1">Book Now</a>
-              <a href="tel:+919846365999" class="btn btn-success btn-sm mx-1">Call Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-       Vehicle Card 8 
-      <div class="col-md-4 mb-4 ftco-animate">
-        <div class="card vehicle-card shadow-sm border-0 h-100">
-          <div class="vehicle-img">
-            <img src="{% static 'images/vehicle-8.png' %}" class="card-img-top" alt="Buses">
-          </div>
-          <div class="card-body text-center">
-            <h5 class="card-title mb-2">Buses</h5>
-            <p class="text-muted mb-1">Seat Capacity: 19,24,30,36,40,49</p>
-            <p class="text-muted mb-1">AC and Non-AC </p>
-            <p class="text-muted mb-1">Available on request</p>
-            <h6 class="text-primary font-weight-bold mb-3">Rates subject to change during festive or peak periods</h6>
-            <div class="d-flex justify-content-center">
-              <a href="{% url 'booking_form' vehicle.id %}" class="btn btn-primary btn-sm mx-1">Book Now</a>
-              <a href="tel:+919846365999" class="btn btn-success btn-sm mx-1">Call Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      Vehicle Card 9 
-      <div class="col-md-4 mb-4 ftco-animate">
-        <div class="card vehicle-card shadow-sm border-0 h-100">
-          <div class="vehicle-img">
-            <img src="{% static 'images/vehicle-9.png' %}" class="card-img-top" alt="Marcopolo Bus">
-          </div>
-          <div class="card-body text-center">
-            <h5 class="card-title mb-2">Marcopolo Bus</h5>
-            <p class="text-muted mb-1">Seat Capacity: 24,30,40 • AC  </p>
-            <p class="text-muted mb-1">Available on request</p>
-            <h6 class="text-primary font-weight-bold mb-3">Rates subject to change during festive or peak periods</h6>
-            <div class="d-flex justify-content-center">
-              <a href="{% url 'booking_form' vehicle.id %}" class="btn btn-primary btn-sm mx-1">Book Now</a>
-              <a href="tel:+919846365999" class="btn btn-success btn-sm mx-1">Call Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-{% endcomment %}
 
     </div>
   </div>
@@ -698,7 +502,7 @@
 
           <!-- LOGIN -->
           <div class="tab-pane fade show active" id="loginTab">
-            <form method="post" action="{% url 'login' %}">
+            <form method="post" action="{% url 'booking:login' %}">
               {% csrf_token %}
               <input type="text" name="username" class="form-control mb-2" placeholder="Username" required>
               <input type="password" name="password" class="form-control mb-2" placeholder="Password" required>
@@ -708,7 +512,7 @@
 
           <!-- SIGNUP -->
           <div class="tab-pane fade" id="signupTab">
-            <form method="post" action="{% url 'signup' %}">
+            <form method="post" action="{% url 'booking:signup' %}">
               {% csrf_token %}
               <input type="text" name="username" class="form-control mb-2" placeholder="Username" required>
               <input type="email" name="email" class="form-control mb-2" placeholder="Email" required>
